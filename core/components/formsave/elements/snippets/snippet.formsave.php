@@ -43,7 +43,8 @@ $newForm->fromArray(array(
 	'time' => time(),
 	'published' => $formPublished,
 	'data' => $dataArray,
-	'ip' => $_SERVER['REMOTE_ADDR']
+	//  Pseudonymise logs by erasing last octet of IP address
+	'ip' => preg_replace("/(\d{1,3})\.(\d{1,3}).(\d{1,3}).(\d{1,3})/", '$1.$2.$3.0', $_SERVER['REMOTE_ADDR'])
 ));
 
 // Save the form
